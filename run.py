@@ -12,11 +12,14 @@ URLS = [
 ]
 
 URLS2 = [
+  # 6/25 の予約ページ
   'https://www.vaccine.mrso.jp/sdftokyo/CustomReserves/input/44665/894',
   'https://www.vaccine.mrso.jp/sdftokyo/CustomReserves/input/44666/894',
   'https://www.vaccine.mrso.jp/sdftokyo/CustomReserves/input/44667/894',
   'https://www.vaccine.mrso.jp/sdftokyo/CustomReserves/input/44668/894',
 ]
+
+MODE = 2
 
 def login(driver, config):
   driver.get('https://www.vaccine.mrso.jp/sdftokyo/VisitNumbers/visitnoAuth/')
@@ -168,7 +171,14 @@ def main(driver):
   if driver.title != '接種会場一覧 | 自衛隊東京':
     login(driver, config)
 
-  search2(driver)
+  if MODE == 1:
+    search(driver)
+  elif MODE == 2:
+    search2(driver)
+  elif MODE == 3:
+    search3(driver)
+  else:
+    assert(False), 'invalid mode'
 
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
